@@ -1,0 +1,11 @@
+---
+apiVersion: imgpkg.carvel.dev/v1alpha1
+images:
+- annotations:
+    kbld.carvel.dev/id: docker.io/vfarcic/silly-demo:1.0.13
+    kbld.carvel.dev/origins: |
+      - resolved:
+          tag: 1.0.13
+          url: docker.io/vfarcic/silly-demo:1.0.13
+  image: index.docker.io/vfarcic/silly-demo@sha256:7e43403919d2c3d12214d8be50fe22ede4519e0306bd3b3d191f78c2ad8a75cc
+kind: ImagesLock

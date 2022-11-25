@@ -1,0 +1,48 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kbld-demo
+  labels:
+    app.kubernetes.io/name: kbld-demo
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kbld-demo
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kbld-demo
+    spec:
+      containers:
+        - name: kbld-demo
+          image: kbld-demo
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+
+---
+
+apiVersion: kbld.k14s.io/v1alpha1
+kind: Config
+sources:
+- image: kbld-demo
+  path: .
+destinations:
+- image: kbld-demo
+  newImage: docker.io/vfarcic/kbld-demo
